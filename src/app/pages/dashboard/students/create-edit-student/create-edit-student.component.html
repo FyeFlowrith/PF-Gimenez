@@ -10,6 +10,15 @@
             <mat-error *ngIf="studentForm.get('firstName')?.hasError('required')">
               Este campo es requerido
             </mat-error>
+            <mat-error *ngIf="studentForm.get('firstName')?.hasError('minlength')">
+              Debe ingresar al menos 2 caracteres
+            </mat-error>
+            <mat-error *ngIf="studentForm.get('firstName')?.hasError('maxlength')">
+              Debe ingresar menos de 50 caracteres
+            </mat-error>
+            <mat-error *ngIf="studentForm.get('firstName')?.hasError('pattern')">
+              Ha ingresado caracteres incorrectos
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-6">
@@ -19,6 +28,15 @@
             <mat-error *ngIf="studentForm.get('lastName')?.hasError('required')">
               Este campo es requerido
             </mat-error>
+            <mat-error *ngIf="studentForm.get('lastName')?.hasError('minlength')">
+              Debe ingresar al menos 2 caracteres
+            </mat-error>
+            <mat-error *ngIf="studentForm.get('lastName')?.hasError('maxlength')">
+              Debe ingresar menos de 50 caracteres
+            </mat-error>
+            <mat-error *ngIf="studentForm.get('lastName')?.hasError('pattern')">
+              Ha ingresado caracteres incorrectos
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-12">
@@ -27,6 +45,9 @@
             <input formControlName="email" matInput type="email" />
             <mat-error *ngIf="studentForm.get('email')?.hasError('required')">
               Este campo es requerido
+            </mat-error>
+            <mat-error *ngIf="studentForm.get('email')?.hasError('email')">
+              El mail es incorrecto
             </mat-error>
           </mat-form-field>
         </div>
