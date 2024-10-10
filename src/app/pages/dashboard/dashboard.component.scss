@@ -1,0 +1,37 @@
+/* TOOLBAR */
+.toolbar {
+  position: sticky;
+  z-index: 100;
+  background-color: #0d47a1;
+  color: #fafafa;
+  gap: 16px;
+  box-shadow: 0 1px 8px #0000004d;
+
+  mat-icon {
+    color:#fafafa
+  }
+}
+
+.default-spacer {
+  flex: 1 1 auto;
+}
+
+/* SIDENAV */
+.sidenav {
+  width: 14rem;
+  padding: 20px;
+  border-radius: 0;
+  background-color: #f3f3f3;
+  box-shadow: 0 4px 4px 2px #0003;
+}
+
+/* CONTENT */
+.dashboard-container {
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: #fafafa;
+}
+
+.dashboard-content {
+  padding: 20px;
+}

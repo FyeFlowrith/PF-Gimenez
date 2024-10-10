@@ -1,0 +1,27 @@
+<!-- TOOLBAR -->
+<mat-toolbar class="toolbar">
+  <button mat-icon-button (click)="drawer.toggle()" aria-label="Ícono menú de tres líneas horizontales">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Nombre de la Institución</span>
+  <span class="default-spacer"></span>
+  <button mat-icon-button aria-label="Example icon-button with share icon">
+    <mat-icon>person</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-drawer-container class="dashboard-container" autosize>
+  <!-- SIDENAV -->
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <p>Auto-resizing sidenav</p>
+    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+    <button (click)="showFiller = !showFiller" mat-raised-button>
+      Toggle extra text
+    </button>
+  </mat-drawer>
+
+  <!-- CONTENT -->
+  <div class="dashboard-content">
+    <app-students />
+  </div>
+</mat-drawer-container>  
