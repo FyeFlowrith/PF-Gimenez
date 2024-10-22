@@ -4,96 +4,68 @@ import { CreateEditStudentComponent } from './create-edit-student/create-edit-st
 import { Student } from './models';
 import { StudentsService } from '../../../core/services/students.service';
 
-
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrl: './students.component.scss'
+  styleUrls: ['./students.component.scss'] // Corregido 'styleUrl' a 'styleUrls'
 })
-export class StudentsComponent implements OnInit {  
+export class StudentsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fullName', 'email', 'createdAt', 'actions'];
   dataSource: Student[] = [];
   isLoading = false;
 
-  constructor(private matDialog: MatDialog, private studentsService: StudentsService){}
+  constructor(private matDialog: MatDialog, private studentsService: StudentsService) {}
 
   ngOnInit(): void {
     this.loadStudents();
   }
 
   loadStudents(): void {
-    this.isLoading = true;
-    this.studentsService.getStudents().subscribe({
-      next: (students) => {
-        this.dataSource = students;
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
-    })
+    this.setLoading(true);
+    this.studentsService.getStudents().subscribe(students => {
+      this.dataSource = students;
+      this.setLoading(false);
+    });
   }
 
   onDelete(id: number): void {
-    this.isLoading = true;
-    this.studentsService.removeStudentById(id).subscribe({
-      next: (students) => {
-        this.dataSource = students;
-      },
-      error: (err) => {
-        this.isLoading = false;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
+    this.setLoading(true);
+    this.studentsService.removeStudentById(id).subscribe(students => {
+      this.updateDataSource(students);
     });
   }
 
   openModal(editingStudent?: Student): void {
     this.matDialog
-      .open(CreateEditStudentComponent, {data: {editingStudent}})
+      .open(CreateEditStudentComponent, { data: { editingStudent } })
       .afterClosed()
-      .subscribe({
-        next: (result) => {
-          if (!!result) {
-            //const lastId = this.dataSource.length > 0 ? Math.max(...this.dataSource.map(student => student.id)) : 0;
-            //const newId = lastId + 1;
-            if (editingStudent) {
-             this.handleUpdate(editingStudent.id, result);
-            } else {
-              this.handleAdd(result);
-          }
+      .subscribe(result => {
+        if (result) {
+          editingStudent ? this.handleUpdate(editingStudent.id, result) : this.handleAdd(result);
         }
-      },
+      });
+  }
+
+  private handleUpdate(id: number, update: Student): void {
+    this.setLoading(true);
+    this.studentsService.updateStudentById(id, update).subscribe(students => {
+      this.updateDataSource(students);
     });
   }
 
-  handleUpdate(id: number, update: Student): void {
-    this.isLoading = true;
-    this.studentsService.updateStudentById(id, update).subscribe({
-      next: (students) => {
-        this.dataSource = students;
-      },
-      error: (err) => {
-        this.isLoading = false;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
+  private handleAdd(newStudent: Student): void {
+    this.setLoading(true);
+    this.studentsService.addStudent(newStudent).subscribe(students => {
+      this.updateDataSource(students);
     });
   }
 
-  handleAdd(newStudent: Student): void {
-    this.isLoading = true;
-    this.studentsService.addStudent(newStudent).subscribe({
-      next: (students) => {
-        this.dataSource = students;
-      },
-      error: (err) => {
-        this.isLoading = false;
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
-    });
+  private updateDataSource(students: Student[]): void {
+    this.dataSource = students;
+    this.setLoading(false);
+  }
+
+  private setLoading(loading: boolean): void {
+    this.isLoading = loading;
   }
 }

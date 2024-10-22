@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Student } from '../../pages/dashboard/students/models';
 import { delay, Observable, of } from 'rxjs';
 
-
 let DATABASE: Student[] = [
-  { id: 1,
+  {
+    id: 1,
     firstName: 'Carolina',
     lastName: 'Gomez',
     email: 'carolinagomez@ejemplodominio.com.ar',
@@ -16,18 +16,15 @@ let DATABASE: Student[] = [
   providedIn: 'root'
 })
 export class StudentsService {
-
-  constructor() { }
+  constructor() {}
 
   getStudents(): Observable<Student[]> {
     return of(DATABASE).pipe(delay(2000));
   }
 
   updateStudentById(id: number, update: Partial<Student>): Observable<Student[]> {
-    DATABASE = DATABASE.map((student) =>
-      student.id === id ? {...student, ...update} : student
-  );
-  return of(DATABASE).pipe(delay(1000));
+    DATABASE = DATABASE.map(student => (student.id === id ? { ...student, ...update } : student));
+    return of(DATABASE).pipe(delay(1000));
   }
 
   addStudent(newStudent: Omit<Student, 'id' | 'createdAt'>): Observable<Student[]> {
@@ -42,7 +39,7 @@ export class StudentsService {
   }
 
   removeStudentById(id: number): Observable<Student[]> {
-    DATABASE = DATABASE.filter((student) => student.id !== id);
+    DATABASE = DATABASE.filter(student => student.id !== id);
     return of(DATABASE).pipe(delay(1000));
   }
 }
