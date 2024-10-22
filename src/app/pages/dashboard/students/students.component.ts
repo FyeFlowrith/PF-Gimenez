@@ -1,16 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditStudentComponent } from './create-edit-student/create-edit-student.component';
 import { Student } from './models';
-
-const ELEMENT_DATA: Student[] = [
-  { id: 1,
-    firstName: 'Carolina',
-    lastName: 'Gomez',
-    email: 'carolinagomez@ejemplodominio.com.ar',
-    createdAt: new Date()
-  },
-];
+import { StudentsService } from '../../../core/services/students.service';
 
 
 @Component({
@@ -18,15 +10,42 @@ const ELEMENT_DATA: Student[] = [
   templateUrl: './students.component.html',
   styleUrl: './students.component.scss'
 })
-export class StudentsComponent {  
+export class StudentsComponent implements OnInit {  
   displayedColumns: string[] = ['id', 'fullName', 'email', 'createdAt', 'actions'];
-  dataSource = ELEMENT_DATA;
+  dataSource: Student[] = [];
+  isLoading = false;
 
-  constructor(private matDialog: MatDialog){}
+  constructor(private matDialog: MatDialog, private studentsService: StudentsService){}
 
-  onDelete(id: number): void {{
-      this.dataSource = this.dataSource.filter((student) => student.id !== id);
-    }
+  ngOnInit(): void {
+    this.loadStudents();
+  }
+
+  loadStudents(): void {
+    this.isLoading = true;
+    this.studentsService.getStudents().subscribe({
+      next: (students) => {
+        this.dataSource = students;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    })
+  }
+
+  onDelete(id: number): void {
+    this.isLoading = true;
+    this.studentsService.removeStudentById(id).subscribe({
+      next: (students) => {
+        this.dataSource = students;
+      },
+      error: (err) => {
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
   openModal(editingStudent?: Student): void {
@@ -35,15 +54,11 @@ export class StudentsComponent {
       .afterClosed()
       .subscribe({
         next: (result) => {
-          console.log('RECIBIMOS: ', result)
-
           if (!!result) {
             const lastId = this.dataSource.length > 0 ? Math.max(...this.dataSource.map(student => student.id)) : 0;
             const newId = lastId + 1;
-
             if (editingStudent) {
-              this.dataSource = this.dataSource.map((student) =>
-                student.id === editingStudent.id ? {...student, ...result} : student)
+             this.handleUpdate(editingStudent.id, result);
             } else {
               this.dataSource = [
                 ...this.dataSource,
@@ -53,5 +68,20 @@ export class StudentsComponent {
           }
         }
       });
+  }
+
+  handleUpdate(id: number, update: Student): void {
+    this.isLoading = true;
+    this.studentsService.updateStudentById(id, update).subscribe({
+      next: (students) => {
+        this.dataSource = students;
+      },
+      error: (err) => {
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
   }
 }

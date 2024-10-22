@@ -10,6 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { StudentFullNamePipe } from './pipes/student-full-name.pipe';
 import { TitleSizeDirective } from './directives/title-size.directive';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { TitleSizeDirective } from './directives/title-size.directive';
     MatInputModule,
     MatDialogModule,
     MatTableModule,
+    MatProgressBarModule,
+    MatPaginatorModule,
 
     //Pipes
     StudentFullNamePipe,
