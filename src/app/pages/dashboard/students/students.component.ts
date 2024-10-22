@@ -55,19 +55,16 @@ export class StudentsComponent implements OnInit {
       .subscribe({
         next: (result) => {
           if (!!result) {
-            const lastId = this.dataSource.length > 0 ? Math.max(...this.dataSource.map(student => student.id)) : 0;
-            const newId = lastId + 1;
+            //const lastId = this.dataSource.length > 0 ? Math.max(...this.dataSource.map(student => student.id)) : 0;
+            //const newId = lastId + 1;
             if (editingStudent) {
              this.handleUpdate(editingStudent.id, result);
             } else {
-              this.dataSource = [
-                ...this.dataSource,
-                {id: newId, ...result, createdAt: new Date()}
-              ]
-            }
+              this.handleAdd(result);
           }
         }
-      });
+      },
+    });
   }
 
   handleUpdate(id: number, update: Student): void {
@@ -82,6 +79,21 @@ export class StudentsComponent implements OnInit {
       complete: () => {
         this.isLoading = false;
       },
+    });
+  }
+
+  handleAdd(newStudent: Student): void {
+    this.isLoading = true;
+    this.studentsService.addStudent(newStudent).subscribe({
+      next: (students) => {
+        this.dataSource = students;
+      },
+      error: (err) => {
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
   }
 }

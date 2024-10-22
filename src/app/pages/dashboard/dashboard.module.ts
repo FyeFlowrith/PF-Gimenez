@@ -8,6 +8,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { StudentsModule } from './students/students.module';
 import { SharedModule } from '../../shared/shared.module';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SharedModule } from '../../shared/shared.module';
     DashboardRoutingModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatListModule,
     SharedModule,
     StudentsModule
   ],

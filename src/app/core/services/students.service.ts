@@ -30,6 +30,17 @@ export class StudentsService {
   return of(DATABASE).pipe(delay(1000));
   }
 
+  addStudent(newStudent: Omit<Student, 'id' | 'createdAt'>): Observable<Student[]> {
+    const lastId = DATABASE.length > 0 ? Math.max(...DATABASE.map(student => student.id)) : 0;
+    const studentToAdd: Student = {
+      id: lastId + 1,
+      ...newStudent,
+      createdAt: new Date()
+    };
+    DATABASE = [...DATABASE, studentToAdd];
+    return of(DATABASE).pipe(delay(1000));
+  }
+
   removeStudentById(id: number): Observable<Student[]> {
     DATABASE = DATABASE.filter((student) => student.id !== id);
     return of(DATABASE).pipe(delay(1000));

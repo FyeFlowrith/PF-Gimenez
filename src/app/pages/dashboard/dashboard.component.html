@@ -12,16 +12,17 @@
 
 <mat-drawer-container class="dashboard-container" autosize>
   <!-- SIDENAV -->
-  <mat-drawer #drawer class="sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      Toggle extra text
-    </button>
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
+    <mat-nav-list>
+      <a routerLink="students" mat-list-item routerLinkActive #studentsLink="routerLinkActive" [activated]="studentsLink.isActive">Estudiantes</a>
+      <a routerLink="courses" mat-list-item routerLinkActive #coursesLink="routerLinkActive" [activated]="coursesLink.isActive">Cursos</a>
+      <a routerLink="enrollments" mat-list-item routerLinkActive #enrollmentsLink="routerLinkActive" [activated]="enrollmentsLink.isActive">Inscripciones</a>
+    </mat-nav-list>
   </mat-drawer>
 
   <!-- CONTENT -->
   <div class="dashboard-content">
-    <app-students />
+    <router-outlet></router-outlet>
   </div>
+  
 </mat-drawer-container>  
