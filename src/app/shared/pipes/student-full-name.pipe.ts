@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Student } from '../../pages/dashboard/students/models';
+import { Student } from '../../core/interfaces/student.interfaces';
+
 
 @Pipe({
   name: 'studentFullName'

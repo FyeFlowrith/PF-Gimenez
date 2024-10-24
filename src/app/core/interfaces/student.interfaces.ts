@@ -7,5 +7,5 @@ export interface Student {
 }
 
 export interface StudentDialogData {
-    editingStudent?: Student
+    editingStudent?: Student;
 }

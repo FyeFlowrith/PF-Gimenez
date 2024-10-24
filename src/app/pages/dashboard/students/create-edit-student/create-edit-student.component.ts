@@ -1,7 +1,8 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { StudentDialogData } from '../models';
+import { StudentDialogData } from '../../../../core/interfaces/student.interfaces';
+
 
 @Component({
   selector: 'app-create-edit-student',

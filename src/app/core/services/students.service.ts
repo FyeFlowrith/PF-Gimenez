@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Student } from '../../pages/dashboard/students/models';
+import { Student } from '../interfaces/student.interfaces';
 import { delay, Observable, of } from 'rxjs';
 
 

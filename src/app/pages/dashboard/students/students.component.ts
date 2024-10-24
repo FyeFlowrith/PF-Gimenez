@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditStudentComponent } from './create-edit-student/create-edit-student.component';
-import { Student } from './models';
+import { Student } from '../../../core/interfaces/student.interfaces';
 import { StudentsService } from '../../../core/services/students.service';
 
 

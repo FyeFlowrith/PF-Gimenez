@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>{{ data?.editingEnrollment ? 'Editar' : 'Nueva'}} inscripción</h1>
+
+<div matdialog-content class="mx-4">
+  <form [formGroup]="enrollmentForm">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field>
+          <mat-label>Estudiante</mat-label>
+          <mat-select formControlName="studentId" required>
+            <mat-option *ngFor="let studentId of studentIds" [value]="studentId">
+              {{ studentId }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="enrollmentForm.get('studentId')?.hasError('required')">
+            Seleccione un estudiante
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Curso</mat-label>
+          <mat-select formControlName="courseId" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let courseId of courseIds" [value]="courseId">
+              {{ courseId }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="enrollmentForm.get('courseId')?.hasError('required')">
+            Elija un estudiante
+          </mat-error>
+        </mat-form-field>
+      </div>
+        <!--
+        <div class="col-6">
+          <mat-form-field class="example-form-field w-100">
+            <mat-label>Curso</mat-label>
+            <input formControlName="courseId" matInput type="text" />
+            <mat-error *ngIf="enrollmentForm.get('courseId')?.hasError('required')">
+              Este campo es requerido
+            </mat-error>
+            <mat-error *ngIf="enrollmentForm.get('courseId')?.hasError('minlength')">
+              Debe ingresar al menos 2 caracteres
+            </mat-error>
+            <mat-error *ngIf="enrollmentForm.get('courseId')?.hasError('maxlength')">
+              Debe ingresar menos de 50 caracteres
+            </mat-error>
+            <mat-error *ngIf="enrollmentForm.get('courseId')?.hasError('pattern')">
+              Ha ingresado caracteres incorrectos
+            </mat-error>
+          </mat-form-field>
+        </div>
+        -->
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="onSave()">Guardar</button>
+</div>
