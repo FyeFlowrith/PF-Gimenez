@@ -4,6 +4,9 @@ import { CreateEditCoursesComponent } from './create-edit-courses/create-edit-co
 import { Course } from '../../../core/interfaces/course.interfaces';
 import { CoursesService } from '../../../core/services/courses.service';
 import { CoursesDetailComponent } from './courses-detail/courses-detail.component';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-courses',
@@ -15,7 +18,7 @@ export class CoursesComponent implements OnInit {
   dataSource: Course[] = [];
   isLoading = false;
 
-  constructor(private matDialog: MatDialog, private coursesService: CoursesService){}
+  constructor(private matDialog: MatDialog, private coursesService: CoursesService, private router: Router, private location: Location){}
 
   ngOnInit(): void {
     this.loadCourses();
@@ -96,8 +99,10 @@ export class CoursesComponent implements OnInit {
   }
 
   openDetail(course: Course): void {
-    this.matDialog.open(CoursesDetailComponent, {
-      data: course
+    this.location.go('/dashboard/courses/detail/${course.id}');
+    this.matDialog.open(CoursesDetailComponent, {data: course})
+      .afterClosed().subscribe(() => {
+        this.location.go('/dashboard/courses');
     });
   }
 }

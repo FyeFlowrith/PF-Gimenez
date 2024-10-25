@@ -8,6 +8,9 @@ import { Course } from '../../../../core/interfaces/course.interfaces';
   styleUrl: './courses-detail.component.scss'
 })
 export class CoursesDetailComponent {
+  course: Course;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: Course) {
+    this.course = data;
   }
 }

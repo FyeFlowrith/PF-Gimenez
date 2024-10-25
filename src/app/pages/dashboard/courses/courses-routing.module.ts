@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoursesComponent } from './courses.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CoursesComponent
-  },
+  { path: '', component: CoursesComponent },
+  { path: 'detail/:id', component: CoursesComponent },
+  { path: 'create', component: CoursesComponent },
+  { path: 'edit/:id', component: CoursesComponent }
 ];
 
 @NgModule({
