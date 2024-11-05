@@ -13,6 +13,7 @@ import { TitleSizeDirective } from './directives/title-size.directive';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatProgressBarModule,
     MatPaginatorModule,
     MatSelectModule,
+    MatCardModule,
 
     //Pipes
     StudentFullNamePipe,

@@ -14,6 +14,7 @@
   <!-- SIDENAV -->
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
     <mat-nav-list>
+      <a routerLink="users" mat-list-item routerLinkActive #usersLink="routerLinkActive" [activated]="usersLink.isActive">Usuarios</a>
       <a routerLink="students" mat-list-item routerLinkActive #studentsLink="routerLinkActive" [activated]="studentsLink.isActive">Estudiantes</a>
       <a routerLink="courses" mat-list-item routerLinkActive #coursesLink="routerLinkActive" [activated]="coursesLink.isActive">Cursos</a>
       <a routerLink="enrollments" mat-list-item routerLinkActive #enrollmentsLink="routerLinkActive" [activated]="enrollmentsLink.isActive">Inscripciones</a>
