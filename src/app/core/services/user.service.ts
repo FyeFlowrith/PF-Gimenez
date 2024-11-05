@@ -9,7 +9,8 @@ let DATABASE: User[] = [
     lastName: 'Admin',
     email: 'usu-admin@test.com',
     password: 'pass1234',
-    createdAt: new Date()
+    createdAt: new Date(),
+    token: 'klrgjhlseo495340twlekrghwrgw123',
   },
 ];
 

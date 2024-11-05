@@ -5,7 +5,8 @@
   </button>
   <span>Nombre de la Institución</span>
   <span class="default-spacer"></span>
-  <button mat-icon-button aria-label="Example icon-button with share icon">
+  <span *ngIf="authUser$ | async; let authUser">{{authUser.firstName}} {{authUser.lastName}}</span>
+  <button mat-icon-button>
     <mat-icon>person</mat-icon>
   </button>
 </mat-toolbar>

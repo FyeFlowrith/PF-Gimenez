@@ -5,6 +5,7 @@ export interface User {
     email: string;
     password: string;
     createdAt: Date;
+    token: string;
 }
 
 export interface UserDialogData {
